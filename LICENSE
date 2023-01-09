@@ -1,0 +1,61 @@
+## MZ-RESOURCES - LICENCE AGREEMENT
+
+### A. PAID RESOURCES VIA TEBEX
+
+  1. When purchasing a resource, you purchase the right to use the resource and modify it as you see fit for the server you are using. 
+  
+  2. The resource you are purchasing will not be the subject of escrow/encryption. mz-resources believes that server owners/developers have their own vision about where a resource will go and for what purpose. mz-resources does not wish to interfere with that server vision in any way. You are, consequentially, free to modify the resource as you see fit for your own personal use or for use with your own server.
+
+  3. Notwithstanding your licence to freely modify the resource as you see fit for your own purposes (as defined by clause 2 of this licence agreement), you do not - at any time:
+
+      A. own the resource or the code (or any part or the resource or the code); and 
+      
+      B. have any permission, express or implied, to distribute any part of the resource or code in any way - for profit, voluntarily or otherwise. 
+
+  4. Any modifications made by you in respect of a resource is not covered by the Ongoing Support the subject of section B of this licence agreement. You may seek such assistance but it may not be offered to you nor will it be prioritised. 
+  
+  Any conduct which occurs in breach of this licence agreement will result in a ban from the mz-resourced community and termination of any support offered. 
+  
+  5. mz-resources reserves all rights in respect of breaches of intellectual property as a consequence of any breach of this licence agreement, including by way of civil prosecution without further notice. 
+  
+  6. By purchasing and using any mz-resource you agree to the totality of the terms the subject of this licence. 
+
+### B. ONGOING SUPPORT
+
+  7. Support is offered via Discord: https://discord.gg/CqNYvE3CkA
+
+  8. Access to discord support for paid resources is connected to you having the relevant resource role. 
+  
+  9. Typing "/claim" in the abovementioned mz-resources Discord will afford you the relevant role connected to the purchase you have made. Please ensure that your discord user account is connected to your Tebex account (or cfx re/FiveM account).
+  
+  10. If you do not want a resource role, for whatever reason, please reach out to Mr_Zain#4139 and the role will be removed promptly.
+
+### C. UTILISING SUPPORT
+
+  11. If you want an issue examined and potentially resolved please make sure you:
+
+    A. Carefully read the description of what you are using/buying. The "readme.md" needs to be followed closely to ensure proper use of the resources in most cases. Most errors can be addressed by following instructions laid out and/or by restarting your server before raising an issue. Self help is often the best help because only you can know the specifics of your server which may impact on the performance of the resource you have obtained. 
+
+    B. If there remains an issue, please ensure you are posting the issue in the right section of the Discord. For paid resources this is indicated with a diamond icon next to the paid resource name. 
+    
+    C. identify the issue with as much detail as is possible - including:
+
+      I. Set out clearly what you were doing to cause the error; 
+
+      II. What you have tried to resolve the issue; 
+
+    D. Provide evidence of client and server side consoles: 
+    
+      I. Client sided console messages can be accessed via pressing F8. A screenshot or copy of the "open log" can then be obtained and set out in the support request; 
+
+      II. Server sided console messages can be seen in the FXserver launcher or TXadmin console log. Again a screenshot or direct copy of text can be obtained this way;
+
+    E. Share screengrabs and/or clips as to how the error arose in the first place. If possible, try to replicate the error.
+
+### D. FREE RESOURCES
+
+  12. Sections B and C of this licence agreement apply equally to free resources. 
+  
+  13. All free resources are available at: https://github.com/MrZainRP
+
+  14. Please consult the licence agreement relevant to that individual resource for licence terms and conditions of using the relevant resource. As above, the particular licence supersedes section A of this licence agreement. mz-resources does not rely on section A of this licence agreement in respect of any freely available resource. 
