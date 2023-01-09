@@ -365,8 +365,33 @@ CreateThread(function()
 end)
 
 RegisterNetEvent('mz-electrical:client:mzskillcheckprep', function()
-    if Config.NeedJob then 
-        if playerJob.name == "technician" then
+    QBCore.Functions.GetPlayerData(function(PlayerData)
+        PlayerJob = PlayerData.job
+        if Config.NeedJob then 
+            if PlayerData.job.name == "technician" then
+                if Config.mzskills then 
+                    exports["mz-skills"]:CheckSkill("Electrical", Config.tierPrepXP, function(hasskill)
+                        if hasskill then 
+                            TriggerEvent('mz-electrical:client:PrepareJob')
+                        else 
+                            if Config.NotifyType == 'qb' then
+                                QBCore.Functions.Notify("You need at least "..Config.tierPrepXP.." 'Electrical' XP to attend to this sort of work.", "error", 3500)
+                            elseif Config.NotifyType == "okok" then
+                                exports['okokNotify']:Alert("MORE XP NEEDED", "You need at least "..Config.tierPrepXP.." 'Electrical' XP to attend to this sort of work.", 3500, "error")
+                            end    
+                        end 
+                    end) 
+                else 
+                    TriggerEvent('mz-electrical:client:PrepareJob')
+                end
+            else 
+                if Config.NotifyType == 'qb' then
+                    QBCore.Functions.Notify("You are not qualified to assist here. Please go to the job centre and apply for technician employment.", "primary", 3500)
+                elseif Config.NotifyType == "okok" then
+                    exports['okokNotify']:Alert("NOT QUALIFIED?", "You are not qualified to assist here. Please go to the job centre and apply for technician employment.", 3500, "info")
+                end    
+            end
+        else 
             if Config.mzskills then 
                 exports["mz-skills"]:CheckSkill("Electrical", Config.tierPrepXP, function(hasskill)
                     if hasskill then 
@@ -382,30 +407,8 @@ RegisterNetEvent('mz-electrical:client:mzskillcheckprep', function()
             else 
                 TriggerEvent('mz-electrical:client:PrepareJob')
             end
-        else 
-            if Config.NotifyType == 'qb' then
-                QBCore.Functions.Notify("You are not qualified to assist here. Please go to the job centre and apply for technician employment.", "primary", 3500)
-            elseif Config.NotifyType == "okok" then
-                exports['okokNotify']:Alert("NOT QUALIFIED?", "You are not qualified to assist here. Please go to the job centre and apply for technician employment.", 3500, "info")
-            end    
         end
-    else 
-        if Config.mzskills then 
-            exports["mz-skills"]:CheckSkill("Electrical", Config.tierPrepXP, function(hasskill)
-                if hasskill then 
-                    TriggerEvent('mz-electrical:client:PrepareJob')
-                else 
-                    if Config.NotifyType == 'qb' then
-                        QBCore.Functions.Notify("You need at least "..Config.tierPrepXP.." 'Electrical' XP to attend to this sort of work.", "error", 3500)
-                    elseif Config.NotifyType == "okok" then
-                        exports['okokNotify']:Alert("MORE XP NEEDED", "You need at least "..Config.tierPrepXP.." 'Electrical' XP to attend to this sort of work.", 3500, "error")
-                    end    
-                end 
-            end) 
-        else 
-            TriggerEvent('mz-electrical:client:PrepareJob')
-        end
-    end
+    end)
 end)
 
 RegisterNetEvent('mz-electrical:client:PrepareJob', function(timevariable)
@@ -544,8 +547,33 @@ CreateThread(function()
 end)
 
 RegisterNetEvent('mz-electrical:client:mzskillchecktier1', function()
-    if Config.NeedJob then 
-        if playerJob.name == "technician" then 
+    QBCore.Functions.GetPlayerData(function(PlayerData)
+        PlayerJob = PlayerData.job
+        if Config.NeedJob then 
+            if PlayerData.job.name == "technician" then
+                if Config.mzskills then 
+                    exports["mz-skills"]:CheckSkill("Electrical", Config.tier1XP, function(hasskill)
+                        if hasskill then 
+                            TriggerEvent('mz-electrical:client:StartRepair')
+                        else 
+                            if Config.NotifyType == 'qb' then
+                                QBCore.Functions.Notify("You need at least "..Config.tier1XP.." 'Electrical' XP to attend to this sort of work.", "error", 3500)
+                            elseif Config.NotifyType == "okok" then
+                                exports['okokNotify']:Alert("MORE XP NEEDED", "You need at least "..Config.tier1XP.." 'Electrical' XP to attend to this sort of work.", 3500, "error")
+                            end    
+                        end 
+                    end) 
+                else 
+                    TriggerEvent('mz-electrical:client:StartRepair')
+                end
+            else 
+                if Config.NotifyType == 'qb' then
+                    QBCore.Functions.Notify("You are not qualified to assist here. Please go to the job centre and apply for technician employment.", "primary", 3500)
+                elseif Config.NotifyType == "okok" then
+                    exports['okokNotify']:Alert("NOT QUALIFIED?", "You are not qualified to assist here. Please go to the job centre and apply for technician employment.", 3500, "info")
+                end    
+            end
+        else 
             if Config.mzskills then 
                 exports["mz-skills"]:CheckSkill("Electrical", Config.tier1XP, function(hasskill)
                     if hasskill then 
@@ -561,113 +589,83 @@ RegisterNetEvent('mz-electrical:client:mzskillchecktier1', function()
             else 
                 TriggerEvent('mz-electrical:client:StartRepair')
             end
-        else 
-            if Config.NotifyType == 'qb' then
-                QBCore.Functions.Notify("You are not qualified to assist here. Please go to the job centre and apply for technician employment.", "primary", 3500)
-            elseif Config.NotifyType == "okok" then
-                exports['okokNotify']:Alert("NOT QUALIFIED?", "You are not qualified to assist here. Please go to the job centre and apply for technician employment.", 3500, "info")
-            end    
         end
-    else 
-        if Config.mzskills then 
-            exports["mz-skills"]:CheckSkill("Electrical", Config.tier1XP, function(hasskill)
-                if hasskill then 
-                    TriggerEvent('mz-electrical:client:StartRepair')
-                else 
-                    if Config.NotifyType == 'qb' then
-                        QBCore.Functions.Notify("You need at least "..Config.tier1XP.." 'Electrical' XP to attend to this sort of work.", "error", 3500)
-                    elseif Config.NotifyType == "okok" then
-                        exports['okokNotify']:Alert("MORE XP NEEDED", "You need at least "..Config.tier1XP.." 'Electrical' XP to attend to this sort of work.", 3500, "error")
-                    end    
-                end 
-            end) 
-        else 
-            TriggerEvent('mz-electrical:client:StartRepair')
-        end
-    end
+    end)
 end)
 
 RegisterNetEvent('mz-electrical:client:StartRepair', function(timevariable)
-    if playerJob.name == "technician" then 
-        if not jobTier2 and not jobTier3 then 
-            if not jobStart then  
-                if not jobFinished then
-                    TriggerEvent('mz-electrical:client:JobStartCooldown')
-                    Wait(100)
-                    TriggerEvent('animations:client:EmoteCommandStart', {"knock"})
-                    Wait(2000)
-                    TriggerEvent('animations:client:EmoteCommandStart', {"c"})
-                    if Config.NotifyType == 'qb' then
-                        QBCore.Functions.Notify("YOU: I have been sent to look at some generators?", "primary", 3000)
-                    elseif Config.NotifyType == "okok" then
-                        exports['okokNotify']:Alert("YOU", "I have been sent to look at some generators?", 3000, "info")
-                    end
-                    Wait(2000)
-                    if Config.NotifyType == 'qb' then
-                        QBCore.Functions.Notify("FOREMAN: Yes yes, just across from us. Please get them functioning again!", "neutral", 3000)
-                    elseif Config.NotifyType == "okok" then
-                        exports['okokNotify']:Alert("FOREMAN", "Yes yes, just across from us. Please get them functioning again!", 3000, "neutral")
-                    end 
-                    Wait(1000)
-                    TriggerEvent('animations:client:EmoteCommandStart', {"clipboard"})
-                    QBCore.Functions.Progressbar("search_register", "Checking work order...", Config.GetJob, false, true, {
-                        disableMovement = true,
-                        disableCarMovement = true,
-                        disableMouse = false,
-                        disableCombat = true,
-                        DisableControlAction(0, 170, true),
-                    }, {}, {}, {}, function() -- Done
-                        Wait(500)
-                        ClearPedTasks(PlayerPedId()) 
-                        jobTier1 = true 
-                        if Config.NotifyType == 'qb' then
-                            QBCore.Functions.Notify("Please move to the blip to attempt to resolve the issue.", "primary", 3000)
-                        elseif Config.NotifyType == "okok" then
-                            exports['okokNotify']:Alert("MOVE TO PING", "Please move to the blip to attempt to resolve the issue.", 3000, "info")
-                        end   
-                        Wait(500)
-                        TriggerEvent('animations:client:EmoteCommandStart', {"c"})
-                        GetRandomWork()
-                    end, function() -- Cancel
-                        ClearPedTasks(PlayerPedId())
-                        if Config.NotifyType == 'qb' then
-                            QBCore.Functions.Notify("Process Cancelled", "error", 3500)
-                        elseif Config.NotifyType == "okok" then
-                            exports['okokNotify']:Alert("CANCELLED", "Process Cancelled.", 3500, "error")
-                        end        
-                    end)
-                else 
-                    if Config.NotifyType == 'qb' then
-                        QBCore.Functions.Notify("You have already finished repairing the generator, collect your payment.", "primary", 3500)
-                    elseif Config.NotifyType == "okok" then
-                        exports['okokNotify']:Alert("WORK COMPLETE", "You have already finished repairing the generator, collect your payment.", 3500, "info")
-                    end   
+    if not jobTier2 and not jobTier3 then 
+        if not jobStart then  
+            if not jobFinished then
+                TriggerEvent('mz-electrical:client:JobStartCooldown')
+                Wait(100)
+                TriggerEvent('animations:client:EmoteCommandStart', {"knock"})
+                Wait(2000)
+                TriggerEvent('animations:client:EmoteCommandStart', {"c"})
+                if Config.NotifyType == 'qb' then
+                    QBCore.Functions.Notify("YOU: I have been sent to look at some generators?", "primary", 3000)
+                elseif Config.NotifyType == "okok" then
+                    exports['okokNotify']:Alert("YOU", "I have been sent to look at some generators?", 3000, "info")
                 end
+                Wait(2000)
+                if Config.NotifyType == 'qb' then
+                    QBCore.Functions.Notify("FOREMAN: Yes yes, just across from us. Please get them functioning again!", "neutral", 3000)
+                elseif Config.NotifyType == "okok" then
+                    exports['okokNotify']:Alert("FOREMAN", "Yes yes, just across from us. Please get them functioning again!", 3000, "neutral")
+                end 
+                Wait(1000)
+                TriggerEvent('animations:client:EmoteCommandStart', {"clipboard"})
+                QBCore.Functions.Progressbar("search_register", "Checking work order...", Config.GetJob, false, true, {
+                    disableMovement = true,
+                    disableCarMovement = true,
+                    disableMouse = false,
+                    disableCombat = true,
+                    DisableControlAction(0, 170, true),
+                }, {}, {}, {}, function() -- Done
+                    Wait(500)
+                    ClearPedTasks(PlayerPedId()) 
+                    jobTier1 = true 
+                    if Config.NotifyType == 'qb' then
+                        QBCore.Functions.Notify("Please move to the blip to attempt to resolve the issue.", "primary", 3000)
+                    elseif Config.NotifyType == "okok" then
+                        exports['okokNotify']:Alert("MOVE TO PING", "Please move to the blip to attempt to resolve the issue.", 3000, "info")
+                    end   
+                    Wait(500)
+                    TriggerEvent('animations:client:EmoteCommandStart', {"c"})
+                    GetRandomWork()
+                end, function() -- Cancel
+                    ClearPedTasks(PlayerPedId())
+                    if Config.NotifyType == 'qb' then
+                        QBCore.Functions.Notify("Process Cancelled", "error", 3500)
+                    elseif Config.NotifyType == "okok" then
+                        exports['okokNotify']:Alert("CANCELLED", "Process Cancelled.", 3500, "error")
+                    end        
+                end)
             else 
                 if Config.NotifyType == 'qb' then
-                    QBCore.Functions.Notify("You have already started work. Please find the fault at the blip...", "primary", 3500)
+                    QBCore.Functions.Notify("You have already finished repairing the generator, collect your payment.", "primary", 3500)
                 elseif Config.NotifyType == "okok" then
-                    exports['okokNotify']:Alert("WORK STARTED", "You have already started work. Please find the fault at the blip...", 3500, "info")
-                end    
-                Wait(1000)
-                if Config.NotifyType == 'qb' then
-                    QBCore.Functions.Notify("Cooldown remaining: "..jobtime.." seconds.", "error", 3500)
-                elseif Config.NotifyType == "okok" then
-                    exports['okokNotify']:Alert("COOLDOWN", "Cooldown remaining: "..jobtime.." seconds.", 3500, "error")
-                end  
+                    exports['okokNotify']:Alert("WORK COMPLETE", "You have already finished repairing the generator, collect your payment.", 3500, "info")
+                end   
             end
         else 
             if Config.NotifyType == 'qb' then
-                QBCore.Functions.Notify("You are already consigned to do something else, please complete that work...", "primary", 3500)
+                QBCore.Functions.Notify("You have already started work. Please find the fault at the blip...", "primary", 3500)
             elseif Config.NotifyType == "okok" then
-                exports['okokNotify']:Alert("OTHER JOB?", "You are already consigned to do something else, please complete that work...", 3500, "info")
+                exports['okokNotify']:Alert("WORK STARTED", "You have already started work. Please find the fault at the blip...", 3500, "info")
             end    
+            Wait(1000)
+            if Config.NotifyType == 'qb' then
+                QBCore.Functions.Notify("Cooldown remaining: "..jobtime.." seconds.", "error", 3500)
+            elseif Config.NotifyType == "okok" then
+                exports['okokNotify']:Alert("COOLDOWN", "Cooldown remaining: "..jobtime.." seconds.", 3500, "error")
+            end  
         end
     else 
         if Config.NotifyType == 'qb' then
-            QBCore.Functions.Notify("You are not qualified to assist here. Please go to the job centre and apply for technician employment.", "primary", 3500)
+            QBCore.Functions.Notify("You are already consigned to do something else, please complete that work...", "primary", 3500)
         elseif Config.NotifyType == "okok" then
-            exports['okokNotify']:Alert("NOT QUALIFIED?", "You are not qualified to assist here. Please go to the job centre and apply for technician employment.", 3500, "info")
+            exports['okokNotify']:Alert("OTHER JOB?", "You are already consigned to do something else, please complete that work...", 3500, "info")
         end    
     end
 end)
@@ -697,8 +695,33 @@ CreateThread(function()
 end)
 
 RegisterNetEvent('mz-electrical:client:mzskillchecktier2', function()
-    if Config.NeedJob then 
-        if playerJob.name == "technician" then 
+    QBCore.Functions.GetPlayerData(function(PlayerData)
+        PlayerJob = PlayerData.job
+        if Config.NeedJob then 
+            if PlayerData.job.name == "technician" then 
+                if Config.mzskills then 
+                    exports["mz-skills"]:CheckSkill("Electrical", Config.tier2XP, function(hasskill)
+                        if hasskill then 
+                            TriggerEvent('mz-electrical:client:StartRepairTier2')
+                        else 
+                            if Config.NotifyType == 'qb' then
+                                QBCore.Functions.Notify("You need at least "..Config.tier2XP.." 'Electrical' XP to attend to this sort of work.", "error", 3500)
+                            elseif Config.NotifyType == "okok" then
+                                exports['okokNotify']:Alert("MORE XP NEEDED", "You need at least "..Config.tier2XP.." 'Electrical' XP to attend to this sort of work.", 3500, "error")
+                            end    
+                        end 
+                    end) 
+                else 
+                    TriggerEvent('mz-electrical:client:StartRepairTier2')
+                end
+            else 
+                if Config.NotifyType == 'qb' then
+                    QBCore.Functions.Notify("You are not qualified to assist here. Please go to the job centre and apply for technician employment.", "primary", 3500)
+                elseif Config.NotifyType == "okok" then
+                    exports['okokNotify']:Alert("NOT QUALIFIED?", "You are not qualified to assist here. Please go to the job centre and apply for technician employment.", 3500, "info")
+                end    
+            end
+        else 
             if Config.mzskills then 
                 exports["mz-skills"]:CheckSkill("Electrical", Config.tier2XP, function(hasskill)
                     if hasskill then 
@@ -713,114 +736,84 @@ RegisterNetEvent('mz-electrical:client:mzskillchecktier2', function()
                 end) 
             else 
                 TriggerEvent('mz-electrical:client:StartRepairTier2')
-            end
-        else 
-            if Config.NotifyType == 'qb' then
-                QBCore.Functions.Notify("You are not qualified to assist here. Please go to the job centre and apply for technician employment.", "primary", 3500)
-            elseif Config.NotifyType == "okok" then
-                exports['okokNotify']:Alert("NOT QUALIFIED?", "You are not qualified to assist here. Please go to the job centre and apply for technician employment.", 3500, "info")
-            end    
+            end 
         end
-    else 
-        if Config.mzskills then 
-            exports["mz-skills"]:CheckSkill("Electrical", Config.tier2XP, function(hasskill)
-                if hasskill then 
-                    TriggerEvent('mz-electrical:client:StartRepairTier2')
-                else 
-                    if Config.NotifyType == 'qb' then
-                        QBCore.Functions.Notify("You need at least "..Config.tier2XP.." 'Electrical' XP to attend to this sort of work.", "error", 3500)
-                    elseif Config.NotifyType == "okok" then
-                        exports['okokNotify']:Alert("MORE XP NEEDED", "You need at least "..Config.tier2XP.." 'Electrical' XP to attend to this sort of work.", 3500, "error")
-                    end    
-                end 
-            end) 
-        else 
-            TriggerEvent('mz-electrical:client:StartRepairTier2')
-        end 
-    end
+    end)
 end)
 
 RegisterNetEvent('mz-electrical:client:StartRepairTier2', function(timevariable)
-    if playerJob.name == "technician" then 
-        if not JobTier1 and not jobTier3 then 
-            if not jobStart then  
-                if not jobFinished then
-                    jobTier2 = true 
-                    TriggerEvent('mz-electrical:client:JobStartCooldown')
-                    Wait(100)
-                    TriggerEvent('animations:client:EmoteCommandStart', {"knock"})
-                    Wait(2000)
+    if not JobTier1 and not jobTier3 then 
+        if not jobStart then  
+            if not jobFinished then
+                jobTier2 = true 
+                TriggerEvent('mz-electrical:client:JobStartCooldown')
+                Wait(100)
+                TriggerEvent('animations:client:EmoteCommandStart', {"knock"})
+                Wait(2000)
+                TriggerEvent('animations:client:EmoteCommandStart', {"c"})
+                if Config.NotifyType == 'qb' then
+                    QBCore.Functions.Notify("YOU: I heard you had an issue with the power?", "primary", 3000)
+                elseif Config.NotifyType == "okok" then
+                    exports['okokNotify']:Alert("YOU", "I heard you had an issue with the power?", 3000, "info")
+                end   
+                Wait(2000)
+                if Config.NotifyType == 'qb' then
+                    QBCore.Functions.Notify("FOREMAN: Ahh you are finally here, yes yes, have a look here...", "neutral", 3000)
+                elseif Config.NotifyType == "okok" then
+                    exports['okokNotify']:Alert("FOREMAN", "Ahh you are finally here, yes yes, have a look here...", 3000, "neutral")
+                end 
+                Wait(500)
+                TriggerEvent('animations:client:EmoteCommandStart', {"clipboard"})
+                Wait(1000)
+                QBCore.Functions.Progressbar("search_register", "Reviewing report...", Config.GetJob, false, true, {
+                    disableMovement = true,
+                    disableCarMovement = true,
+                    disableMouse = false,
+                    disableCombat = true,
+                    DisableControlAction(0, 170, true),
+                }, {}, {}, {}, function() -- Done
+                    if Config.NotifyType == 'qb' then
+                        QBCore.Functions.Notify("Please move to the blip to attempt to resolve the issue.", "primary", 3000)
+                    elseif Config.NotifyType == "okok" then
+                        exports['okokNotify']:Alert("MOVE TO PING", "Please move to the blip to attempt to resolve the issue.", 3000, "info")
+                    end   
+                    Wait(500)
+                    GetRandomWorkTier2()
+                    TriggerEvent('animations:client:EmoteCommandStart', {"c"})
+                end, function() -- Cancel
+                    ClearPedTasks(PlayerPedId())
                     TriggerEvent('animations:client:EmoteCommandStart', {"c"})
                     if Config.NotifyType == 'qb' then
-                        QBCore.Functions.Notify("YOU: I heard you had an issue with the power?", "primary", 3000)
+                        QBCore.Functions.Notify("Process Cancelled", "error", 3500)
                     elseif Config.NotifyType == "okok" then
-                        exports['okokNotify']:Alert("YOU", "I heard you had an issue with the power?", 3000, "info")
-                    end   
-                    Wait(2000)
-                    if Config.NotifyType == 'qb' then
-                        QBCore.Functions.Notify("FOREMAN: Ahh you are finally here, yes yes, have a look here...", "neutral", 3000)
-                    elseif Config.NotifyType == "okok" then
-                        exports['okokNotify']:Alert("FOREMAN", "Ahh you are finally here, yes yes, have a look here...", 3000, "neutral")
-                    end 
-                    Wait(500)
-                    TriggerEvent('animations:client:EmoteCommandStart', {"clipboard"})
-                    Wait(1000)
-                    QBCore.Functions.Progressbar("search_register", "Reviewing report...", Config.GetJob, false, true, {
-                        disableMovement = true,
-                        disableCarMovement = true,
-                        disableMouse = false,
-                        disableCombat = true,
-                        DisableControlAction(0, 170, true),
-                    }, {}, {}, {}, function() -- Done
-                        if Config.NotifyType == 'qb' then
-                            QBCore.Functions.Notify("Please move to the blip to attempt to resolve the issue.", "primary", 3000)
-                        elseif Config.NotifyType == "okok" then
-                            exports['okokNotify']:Alert("MOVE TO PING", "Please move to the blip to attempt to resolve the issue.", 3000, "info")
-                        end   
-                        Wait(500)
-                        GetRandomWorkTier2()
-                        TriggerEvent('animations:client:EmoteCommandStart', {"c"})
-                    end, function() -- Cancel
-                        ClearPedTasks(PlayerPedId())
-                        TriggerEvent('animations:client:EmoteCommandStart', {"c"})
-                        if Config.NotifyType == 'qb' then
-                            QBCore.Functions.Notify("Process Cancelled", "error", 3500)
-                        elseif Config.NotifyType == "okok" then
-                            exports['okokNotify']:Alert("CANCELLED", "Process Cancelled.", 3500, "error")
-                        end        
-                    end)
-                else 
-                    if Config.NotifyType == 'qb' then
-                        QBCore.Functions.Notify("You have already finished repairing the generator, collect your payment.", "primary", 3500)
-                    elseif Config.NotifyType == "okok" then
-                        exports['okokNotify']:Alert("WORK COMPLETE", "You have already finished repairing the generator, collect your payment.", 3500, "info")
-                    end      
-                end
+                        exports['okokNotify']:Alert("CANCELLED", "Process Cancelled.", 3500, "error")
+                    end        
+                end)
             else 
                 if Config.NotifyType == 'qb' then
-                    QBCore.Functions.Notify("You have already started work. Please find the fault at the blip...", "primary", 3500)
+                    QBCore.Functions.Notify("You have already finished repairing the generator, collect your payment.", "primary", 3500)
                 elseif Config.NotifyType == "okok" then
-                    exports['okokNotify']:Alert("WORK STARTED", "You have already started work. Please find the fault at the blip...", 3500, "info")
-                end    
-                Wait(1000)
-                if Config.NotifyType == 'qb' then
-                    QBCore.Functions.Notify("Cooldown remaining: "..jobtime.." seconds.", "error", 3500)
-                elseif Config.NotifyType == "okok" then
-                    exports['okokNotify']:Alert("COOLDOWN", "Cooldown remaining: "..jobtime.." seconds.", 3500, "error")
-                end  
+                    exports['okokNotify']:Alert("WORK COMPLETE", "You have already finished repairing the generator, collect your payment.", 3500, "info")
+                end      
             end
         else 
             if Config.NotifyType == 'qb' then
-                QBCore.Functions.Notify("You are already consigned to do something else, please complete that work...", "primary", 3500)
+                QBCore.Functions.Notify("You have already started work. Please find the fault at the blip...", "primary", 3500)
             elseif Config.NotifyType == "okok" then
-                exports['okokNotify']:Alert("OTHER JOB?", "You are already consigned to do something else, please complete that work...", 3500, "info")
+                exports['okokNotify']:Alert("WORK STARTED", "You have already started work. Please find the fault at the blip...", 3500, "info")
             end    
+            Wait(1000)
+            if Config.NotifyType == 'qb' then
+                QBCore.Functions.Notify("Cooldown remaining: "..jobtime.." seconds.", "error", 3500)
+            elseif Config.NotifyType == "okok" then
+                exports['okokNotify']:Alert("COOLDOWN", "Cooldown remaining: "..jobtime.." seconds.", 3500, "error")
+            end  
         end
     else 
         if Config.NotifyType == 'qb' then
-            QBCore.Functions.Notify("You are not qualified to assist here. Please go to the job centre and apply for technician employment.", "primary", 3500)
+            QBCore.Functions.Notify("You are already consigned to do something else, please complete that work...", "primary", 3500)
         elseif Config.NotifyType == "okok" then
-            exports['okokNotify']:Alert("NOT QUALIFIED?", "You are not qualified to assist here. Please go to the job centre and apply for technician employment.", 3500, "info")
+            exports['okokNotify']:Alert("OTHER JOB?", "You are already consigned to do something else, please complete that work...", 3500, "info")
         end    
     end
 end)
@@ -850,8 +843,33 @@ CreateThread(function()
 end)
 
 RegisterNetEvent('mz-electrical:client:mzskillchecktier3', function()
-    if Config.NeedJob then 
-        if playerJob.name == "technician" then 
+    QBCore.Functions.GetPlayerData(function(PlayerData)
+        PlayerJob = PlayerData.job
+        if Config.NeedJob then 
+            if PlayerData.job.name == "technician" then 
+                if Config.mzskills then 
+                    exports["mz-skills"]:CheckSkill("Electrical", Config.tier3XP, function(hasskill)
+                        if hasskill then 
+                            TriggerEvent('mz-electrical:client:StartRepairTier3')
+                        else 
+                            if Config.NotifyType == 'qb' then
+                                QBCore.Functions.Notify("You need at least "..Config.tier3XP.." 'Electrical' XP to attend to this sort of work.", "error", 3500)
+                            elseif Config.NotifyType == "okok" then
+                                exports['okokNotify']:Alert("MORE XP NEEDED", "You need at least "..Config.tier3XP.." 'Electrical' XP to attend to this sort of work.", 3500, "error")
+                            end    
+                        end 
+                    end) 
+                else 
+                    TriggerEvent('mz-electrical:client:StartRepairTier3')
+                end
+            else 
+                if Config.NotifyType == 'qb' then
+                    QBCore.Functions.Notify("You are not qualified to assist here. Please go to the job centre and apply for technician employment.", "primary", 3500)
+                elseif Config.NotifyType == "okok" then
+                    exports['okokNotify']:Alert("NOT QUALIFIED?", "You are not qualified to assist here. Please go to the job centre and apply for technician employment.", 3500, "info")
+                end    
+            end
+        else 
             if Config.mzskills then 
                 exports["mz-skills"]:CheckSkill("Electrical", Config.tier3XP, function(hasskill)
                     if hasskill then 
@@ -867,113 +885,83 @@ RegisterNetEvent('mz-electrical:client:mzskillchecktier3', function()
             else 
                 TriggerEvent('mz-electrical:client:StartRepairTier3')
             end
-        else 
-            if Config.NotifyType == 'qb' then
-                QBCore.Functions.Notify("You are not qualified to assist here. Please go to the job centre and apply for technician employment.", "primary", 3500)
-            elseif Config.NotifyType == "okok" then
-                exports['okokNotify']:Alert("NOT QUALIFIED?", "You are not qualified to assist here. Please go to the job centre and apply for technician employment.", 3500, "info")
-            end    
         end
-    else 
-        if Config.mzskills then 
-            exports["mz-skills"]:CheckSkill("Electrical", Config.tier3XP, function(hasskill)
-                if hasskill then 
-                    TriggerEvent('mz-electrical:client:StartRepairTier3')
-                else 
-                    if Config.NotifyType == 'qb' then
-                        QBCore.Functions.Notify("You need at least "..Config.tier3XP.." 'Electrical' XP to attend to this sort of work.", "error", 3500)
-                    elseif Config.NotifyType == "okok" then
-                        exports['okokNotify']:Alert("MORE XP NEEDED", "You need at least "..Config.tier3XP.." 'Electrical' XP to attend to this sort of work.", 3500, "error")
-                    end    
-                end 
-            end) 
-        else 
-            TriggerEvent('mz-electrical:client:StartRepairTier3')
-        end
-    end
+    end)
 end)
 
 RegisterNetEvent('mz-electrical:client:StartRepairTier3', function(timevariable)
-    if playerJob.name == "technician" then
-        if not JobTier1 and not jobTier2 then 
-            if not jobStart then  
-                if not jobFinished then 
-                    jobTier3 = true 
-                    TriggerEvent('mz-electrical:client:JobStartCooldown')
-                    Wait(100)
-                    TriggerEvent('animations:client:EmoteCommandStart', {"knock"})
-                    Wait(2000)
+    if not JobTier1 and not jobTier2 then 
+        if not jobStart then  
+            if not jobFinished then 
+                jobTier3 = true 
+                TriggerEvent('mz-electrical:client:JobStartCooldown')
+                Wait(100)
+                TriggerEvent('animations:client:EmoteCommandStart', {"knock"})
+                Wait(2000)
+                TriggerEvent('animations:client:EmoteCommandStart', {"c"})
+                if Config.NotifyType == 'qb' then
+                    QBCore.Functions.Notify("YOU: They've sent the most experienced sparky they have...", "primary", 3000)
+                elseif Config.NotifyType == "okok" then
+                    exports['okokNotify']:Alert("YOU", "They've sent the most experienced sparky they have...", 3000, "info")
+                end   
+                Wait(2000)
+                if Config.NotifyType == 'qb' then
+                    QBCore.Functions.Notify("FOREMAN: Excellent, please fix this, the city needs the power!", "neutral", 3000)
+                elseif Config.NotifyType == "okok" then
+                    exports['okokNotify']:Alert("FOREMAN", "Excellent, please fix this, the city needs the power!", 3000, "neutral")
+                end 
+                Wait(500)
+                TriggerEvent('animations:client:EmoteCommandStart', {"clipboard"})
+                Wait(1000)
+                QBCore.Functions.Progressbar("search_register", "Reviewing schematics...", Config.GetJob, false, true, {
+                    disableMovement = true,
+                    disableCarMovement = true,
+                    disableMouse = false,
+                    disableCombat = true,
+                    DisableControlAction(0, 170, true),
+                }, {}, {}, {}, function() -- Done
+                    if Config.NotifyType == 'qb' then
+                        QBCore.Functions.Notify("Please move to the blip to attempt to resolve the issue.", "primary", 3000)
+                    elseif Config.NotifyType == "okok" then
+                        exports['okokNotify']:Alert("MOVE TO PING", "Please move to the blip to attempt to resolve the issue.", 3000, "info")
+                    end   
+                    Wait(500)
+                    GetRandomWorkTier3()
+                    TriggerEvent('animations:client:EmoteCommandStart', {"c"})
+                end, function() -- Cancel
+                    ClearPedTasks(PlayerPedId())
                     TriggerEvent('animations:client:EmoteCommandStart', {"c"})
                     if Config.NotifyType == 'qb' then
-                        QBCore.Functions.Notify("YOU: They've sent the most experienced sparky they have...", "primary", 3000)
+                        QBCore.Functions.Notify("Process Cancelled", "error", 3500)
                     elseif Config.NotifyType == "okok" then
-                        exports['okokNotify']:Alert("YOU", "They've sent the most experienced sparky they have...", 3000, "info")
-                    end   
-                    Wait(2000)
-                    if Config.NotifyType == 'qb' then
-                        QBCore.Functions.Notify("FOREMAN: Excellent, please fix this, the city needs the power!", "neutral", 3000)
-                    elseif Config.NotifyType == "okok" then
-                        exports['okokNotify']:Alert("FOREMAN", "Excellent, please fix this, the city needs the power!", 3000, "neutral")
-                    end 
-                    Wait(500)
-                    TriggerEvent('animations:client:EmoteCommandStart', {"clipboard"})
-                    Wait(1000)
-                    QBCore.Functions.Progressbar("search_register", "Reviewing schematics...", Config.GetJob, false, true, {
-                        disableMovement = true,
-                        disableCarMovement = true,
-                        disableMouse = false,
-                        disableCombat = true,
-                        DisableControlAction(0, 170, true),
-                    }, {}, {}, {}, function() -- Done
-                        if Config.NotifyType == 'qb' then
-                            QBCore.Functions.Notify("Please move to the blip to attempt to resolve the issue.", "primary", 3000)
-                        elseif Config.NotifyType == "okok" then
-                            exports['okokNotify']:Alert("MOVE TO PING", "Please move to the blip to attempt to resolve the issue.", 3000, "info")
-                        end   
-                        Wait(500)
-                        GetRandomWorkTier3()
-                        TriggerEvent('animations:client:EmoteCommandStart', {"c"})
-                    end, function() -- Cancel
-                        ClearPedTasks(PlayerPedId())
-                        TriggerEvent('animations:client:EmoteCommandStart', {"c"})
-                        if Config.NotifyType == 'qb' then
-                            QBCore.Functions.Notify("Process Cancelled", "error", 3500)
-                        elseif Config.NotifyType == "okok" then
-                            exports['okokNotify']:Alert("CANCELLED", "Process Cancelled.", 3500, "error")
-                        end        
-                    end)
-                else 
-                    if Config.NotifyType == 'qb' then
-                        QBCore.Functions.Notify("You have already finished repairing the generator, collect your payment.", "primary", 3500)
-                    elseif Config.NotifyType == "okok" then
-                        exports['okokNotify']:Alert("WORK COMPLETE", "You have already finished repairing the generator, collect your payment.", 3500, "info")
-                    end      
-                end
+                        exports['okokNotify']:Alert("CANCELLED", "Process Cancelled.", 3500, "error")
+                    end        
+                end)
             else 
                 if Config.NotifyType == 'qb' then
-                    QBCore.Functions.Notify("You have already started work. Please find the fault at the blip...", "primary", 3500)
+                    QBCore.Functions.Notify("You have already finished repairing the generator, collect your payment.", "primary", 3500)
                 elseif Config.NotifyType == "okok" then
-                    exports['okokNotify']:Alert("WORK STARTED", "You have already started work. Please find the fault at the blip...", 3500, "info")
-                end    
-                Wait(1000)
-                if Config.NotifyType == 'qb' then
-                    QBCore.Functions.Notify("Cooldown remaining: "..jobtime.." seconds.", "error", 3500)
-                elseif Config.NotifyType == "okok" then
-                    exports['okokNotify']:Alert("COOLDOWN", "Cooldown remaining: "..jobtime.." seconds.", 3500, "error")
-                end  
+                    exports['okokNotify']:Alert("WORK COMPLETE", "You have already finished repairing the generator, collect your payment.", 3500, "info")
+                end      
             end
         else 
             if Config.NotifyType == 'qb' then
-                QBCore.Functions.Notify("You are already consigned to do something else, please complete that work...", "primary", 3500)
+                QBCore.Functions.Notify("You have already started work. Please find the fault at the blip...", "primary", 3500)
             elseif Config.NotifyType == "okok" then
-                exports['okokNotify']:Alert("OTHER JOB?", "You are already consigned to do something else, please complete that work...", 3500, "info")
+                exports['okokNotify']:Alert("WORK STARTED", "You have already started work. Please find the fault at the blip...", 3500, "info")
             end    
+            Wait(1000)
+            if Config.NotifyType == 'qb' then
+                QBCore.Functions.Notify("Cooldown remaining: "..jobtime.." seconds.", "error", 3500)
+            elseif Config.NotifyType == "okok" then
+                exports['okokNotify']:Alert("COOLDOWN", "Cooldown remaining: "..jobtime.." seconds.", 3500, "error")
+            end  
         end
     else 
         if Config.NotifyType == 'qb' then
-            QBCore.Functions.Notify("You are not qualified to assist here. Please go to the job centre and apply for technician employment.", "primary", 3500)
+            QBCore.Functions.Notify("You are already consigned to do something else, please complete that work...", "primary", 3500)
         elseif Config.NotifyType == "okok" then
-            exports['okokNotify']:Alert("NOT QUALIFIED?", "You are not qualified to assist here. Please go to the job centre and apply for technician employment.", 3500, "info")
+            exports['okokNotify']:Alert("OTHER JOB?", "You are already consigned to do something else, please complete that work...", 3500, "info")
         end    
     end
 end)
