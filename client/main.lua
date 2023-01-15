@@ -174,9 +174,45 @@ CreateThread(function()
                 icon = 'fas fa-tools',
                 label = 'How do I work here?'
             },
+            {
+                type = "client",
+                event = "mz-electrical:client:EndWork",
+                icon = 'fas fa-tools',
+                label = 'End Shift (No Payment)'
+            },
         },
         distance = 1.5,
      })
+end)
+
+RegisterNetEvent('mz-electrical:client:EndWork', function()
+    if Config.NotifyType == 'qb' then
+        QBCore.Functions.Notify("Thank you for your work!", "primary", 3000)
+    elseif Config.NotifyType == "okok" then
+        exports['okokNotify']:Alert("SUPERVISOR", "Thank you for your work!", 3000, "info")
+    end
+    DestoryInsideZones()
+    BreakdownLocations = nil 
+    BreakdownLocationsTier2 = nil
+    BreakdownLocationsTier3 = nil
+    BreakdownLocationsTierPrep = nil
+    jobsComplete = 0
+    jobsCompleteT2 = 0
+    jobsCompleteT3 = 0
+    jobsCompletePrep = 0
+    jobStart = false
+    jobtime = 0 
+    jobFinished = false
+    jobFinishedPrep = false
+    working = false
+    AntiExploitPrep = false 
+    AntiExploitT1 = false
+    AntiExploitT2 = false
+    AntiExploitT3 = false
+    jobTier1 = false
+    jobTier2 = false 
+    jobTier3 = false 
+    jobTierPrep = false 
 end)
 
 RegisterNetEvent('mz-electrical:client:ToggleDuty', function()
