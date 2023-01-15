@@ -16,20 +16,15 @@ local jobFinished = false
 local jobFinishedPrep = false
 local working = false
 
-local JobTier1 = false
-local JobTier2 = false 
-local JobTier3 = false 
-local JobTierPrep = false 
+local AntiExploitPrep = false 
+local AntiExploitT1 = false
+local AntiExploitT2 = false
+local AntiExploitT3 = false
 
-local lvl8 = false
-local lvl7 = false
-local lvl6 = false
-local lvl5 = false
-local lvl4 = false
-local lvl3 = false
-local lvl2 = false
-local lvl1 = false
-local lvl0 = false
+local jobTier1 = false
+local jobTier2 = false 
+local jobTier3 = false 
+local jobTierPrep = false 
 
 local pickupTargetID = 'pickupTarget'
 local pickupTargetID2 = 'pickupTarget2'
@@ -494,24 +489,27 @@ RegisterNetEvent('mz-electrical:client:ReturnSupplies', function()
     Wait(1000)
     TriggerEvent('animations:client:EmoteCommandStart', {"c"})
     if jobFinishedPrep then 
-        TriggerServerEvent('mz-electrical:server:GetPaymentPrep')
+        AntiExploitPrep = true 
+        Wait(100)
+        TriggerServerEvent('mz-electrical:server:GetPaymentPrep', AntiExploitPrep)
         Wait(500)
         local TierPrepMultiplier = 0
         while TierPrepMultiplier <= (Config.TierPrepMultiplier - 1) do
             TriggerServerEvent('mz-electrical:server:GetPaymentItems')
             Wait(1000)
         TierPrepMultiplier = TierPrepMultiplier + 1
-        end 
+        end
         ClearPedTasks(PlayerPedId())
+        Wait(1000)
+        if Config.RareItems then 
+            TriggerServerEvent('mz-electrical:server:GetPaymentItemsRare')
+        end
         working = false
         jobStart = false 
         jobTierPrep = false
         jobFinishedPrep = false 
         jobsCompletePrep = 0
-        Wait(1000)
-        if Config.RareItems then 
-            TriggerServerEvent('mz-electrical:server:GetPaymentItemsRare')
-        end
+        AntiExploitPrep = false 
     else 
         ClearPedTasks(PlayerPedId())
         if Config.NotifyType == 'qb' then
@@ -742,7 +740,7 @@ RegisterNetEvent('mz-electrical:client:mzskillchecktier2', function()
 end)
 
 RegisterNetEvent('mz-electrical:client:StartRepairTier2', function(timevariable)
-    if not JobTier1 and not jobTier3 then 
+    if not jobTier1 and not jobTier3 then 
         if not jobStart then  
             if not jobFinished then
                 jobTier2 = true 
@@ -890,7 +888,7 @@ RegisterNetEvent('mz-electrical:client:mzskillchecktier3', function()
 end)
 
 RegisterNetEvent('mz-electrical:client:StartRepairTier3', function(timevariable)
-    if not JobTier1 and not jobTier2 then 
+    if not jobTier1 and not jobTier2 then 
         if not jobStart then  
             if not jobFinished then 
                 jobTier3 = true 
@@ -1426,7 +1424,8 @@ RegisterNetEvent('mz-electrical:client:GetPaid', function()
     Wait(1000)
     if jobFinished then 
         if jobTier1 then 
-            TriggerServerEvent('mz-electrical:server:GetPayment')
+            AntiExploitT1 = true 
+            TriggerServerEvent('mz-electrical:server:GetPayment', AntiExploitT1)
             Wait(500)
             local Tier1Multiplier = 0
             while Tier1Multiplier <= (Config.Tier1Multiplier - 1) do
@@ -1439,6 +1438,7 @@ RegisterNetEvent('mz-electrical:client:GetPaid', function()
             jobTier1 = false
             jobFinished = false 
             jobsComplete = 0
+            AntiExploitT1 = false
             Wait(1000)
             if Config.RareItems then 
                 TriggerServerEvent('mz-electrical:server:GetPaymentItemsRare')
@@ -1455,6 +1455,7 @@ RegisterNetEvent('mz-electrical:client:GetPaid', function()
                 exports["mz-skills"]:UpdateSkill("Electrical", chance)
             end
         elseif jobTier2 then 
+            AntiExploitT2 = true 
             TriggerServerEvent('mz-electrical:server:GetPaymentTier2') 
             Wait(500)
             local Tier2Multiplier = 0
@@ -1468,6 +1469,7 @@ RegisterNetEvent('mz-electrical:client:GetPaid', function()
             jobTier2 = false
             jobFinished = false
             jobsCompleteT2 = 0
+            AntiExploitT2 = false
             Wait(1000)
             if Config.RareItems then 
                 TriggerServerEvent('mz-electrical:server:GetPaymentItemsRare')
@@ -1484,6 +1486,7 @@ RegisterNetEvent('mz-electrical:client:GetPaid', function()
                 exports["mz-skills"]:UpdateSkill("Electrical", chance)
             end
         elseif jobTier3 then 
+            AntiExploitT3 = true 
             TriggerServerEvent('mz-electrical:server:GetPaymentTier3')
             Wait(500)
             local Tier3Multiplier = 0
@@ -1497,6 +1500,7 @@ RegisterNetEvent('mz-electrical:client:GetPaid', function()
             jobTier3 = false
             jobFinished = false
             jobsCompleteT3 = 0
+            AntiExploitT3 = false 
             Wait(1000)
             if Config.RareItems then 
                 TriggerServerEvent('mz-electrical:server:GetPaymentItemsRare')

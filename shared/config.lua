@@ -22,9 +22,9 @@ Config = {
     mzskills = true,                        -- Change to "false" to run the resource without reference to mz-skills    
     -- if "Config.Skillcheck = true", then the following parameters apply:
     tierPrepXP = 0,                         -- Amount of "Electrical" XP needed to perform Prep Tier work.
-    tier1XP = 800,                          -- Amount of "Electrical" XP needed to perform Tier 1 work.
+    tier1XP = 400,                          -- Amount of "Electrical" XP needed to perform Tier 1 work.
     tier2XP = 2400,                         -- Amount of "Electrical" XP needed to perform Tier 2 work.
-    tier3XP = 0,                         -- Amount of "Electrical" XP needed to perform Tier 3 work.
+    tier3XP = 6400,                         -- Amount of "Electrical" XP needed to perform Tier 3 work.
     -- XP gain for completing each task:
     TPrepelecXPlow = 1,                     -- Lowest amount of "Electrical" XP gained from completing a Prep Tier task.
     TPrepelecXPhigh = 2,                    -- Highest amount of "Electrical" XP gained from completing a Prep Tier task.
@@ -85,7 +85,7 @@ Config = {
     ----------
     JobCompleteLow = 1500,                  -- Lowest amount of money received for completing a Tier 1 job. 
     JobCompleteHigh = 2500,                 -- Highest amount of money received for completing a Tier 1 job. 
-    Tier1Jobs = 4,                          -- Number of generator components which need to be completed before job completes (recommended: 4+)
+    Tier1Jobs = 1,                          -- Number of generator components which need to be completed before job completes (recommended: 4+)
     Tier1Multiplier = 3,                    -- Number of item parses player receives for finishing a Tier 1 job and cashing in.
     ----------
     --TIER 2--

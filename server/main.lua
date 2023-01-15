@@ -4,11 +4,11 @@ local QBCore = exports['qb-core']:GetCoreObject()
 --PAYMENT--
 -----------
 
-RegisterNetEvent('mz-electrical:server:GetPaymentPrep', function()
+RegisterNetEvent('mz-electrical:server:GetPaymentPrep', function(AntiExploitPrep)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local Payment = math.random(Config.JobCompletePrepLow, Config.JobCompletePrepHigh)
-    if JobTierPrep and jobFinishedPrep and jobsCompletePrep == Config.TierPrepJobs then 
+    if AntiExploitPrep then 
         Player.Functions.AddMoney(Config.PaymentType, Payment)
         if Config.NotifyType == 'qb' then
             TriggerClientEvent('QBCore:Notify', src, "You were paid $"..Payment.." into your bank account.", "success", 3500)
@@ -17,14 +17,14 @@ RegisterNetEvent('mz-electrical:server:GetPaymentPrep', function()
         end
     else 
         print("Player attempting to exploit 'mz-electrical:server:GetPaymentPrep' function")
-    end 
+    end  
 end)
 
-RegisterNetEvent('mz-electrical:server:GetPayment', function()
+RegisterNetEvent('mz-electrical:server:GetPayment', function(AntiExploitT1)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local Payment = math.random(Config.JobCompleteLow, Config.JobCompleteHigh)
-    if jobTier1 and jobFinished and jobsComplete == Config.Tier1Jobs then 
+    if AntiExploitT1 then 
         Player.Functions.AddMoney(Config.PaymentType, Payment)
         if Config.NotifyType == 'qb' then
             TriggerClientEvent('QBCore:Notify', src, "You were paid $"..Payment.." into your bank account.", "success", 3500)
@@ -36,11 +36,11 @@ RegisterNetEvent('mz-electrical:server:GetPayment', function()
     end 
 end)
 
-RegisterNetEvent('mz-electrical:server:GetPaymentTier2', function()
+RegisterNetEvent('mz-electrical:server:GetPaymentTier2', function(AntiExploitT2)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local Payment = math.random(Config.JobCompleteTier2Low, Config.JobCompleteTier2High)
-    if jobTier2 and jobFinished and jobsCompleteT2 == Config.Tier2Jobs then 
+    if AntiExploitT2 then 
         Player.Functions.AddMoney(Config.PaymentType, Payment)
         if Config.NotifyType == 'qb' then
             TriggerClientEvent('QBCore:Notify', src, "You were paid $"..Payment.." into your bank account.", "success", 3500)
@@ -52,11 +52,11 @@ RegisterNetEvent('mz-electrical:server:GetPaymentTier2', function()
     end 
 end)
 
-RegisterNetEvent('mz-electrical:server:GetPaymentTier3', function()
+RegisterNetEvent('mz-electrical:server:GetPaymentTier3', function(AntiExploitT3)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local Payment = math.random(Config.JobCompleteTier3Low, Config.JobCompleteTier3High)
-    if jobTier3 and jobFinished and jobsCompleteT3 == Config.Tier3Jobs then 
+    if AntiExploitT3 then 
         Player.Functions.AddMoney(Config.PaymentType, Payment)
         if Config.NotifyType == 'qb' then
             TriggerClientEvent('QBCore:Notify', src, "You were paid $"..Payment.." into your bank account.", "success", 3500)
@@ -109,16 +109,21 @@ RegisterNetEvent('mz-electrical:server:GetPaymentItemsRare', function()
     local rarechance = math.random(1, 100)
     local Item1RareAmount = math.random(Config.ItemRareAmountLow, Config.ItemRareAmountHigh)
     local Item2RareAmount = math.random(Config.ItemRare2AmountLow, Config.ItemRare2AmountLow)
-    if chance <= Config.ItemRareChance then 
-        Player.Functions.AddItem(Config.ItemRare, Item1RareAmount, false)
+    if rarechance <= Config.ItemRareChance then 
+        Player.Functions.AddItem(Config.ItemRare, Item1RareAmount)
         TriggerClientEvent('inventory:client:ItemBox', source, QBCore.Shared.Items[Config.ItemRare], "add", Item1RareAmount)
-    elseif chance > (Config.ItemRareChance) and chance <= (Config.ItemRareChance + Config.ItemRare2Chance) then 
+        if Config.NotifyType == 'qb' then
+            TriggerClientEvent('QBCore:Notify', src, "You were given something else! Nice!", "success", 3500)
+        elseif Config.NotifyType == "okok" then
+            TriggerClientEvent('okokNotify:Alert', source, "RARE ITEM", "You were given something else! Nice!", 3500, 'success')
+        end
+    elseif rarechance > (Config.ItemRareChance) and rarechance <= (Config.ItemRareChance + Config.ItemRare2Chance) then 
         Player.Functions.AddItem(Config.ItemRare2, Item2RareAmount, false)
         TriggerClientEvent('inventory:client:ItemBox', source, QBCore.Shared.Items[Config.ItemRare2], "add", Item2RareAmount)
-    end
-    if Config.NotifyType == 'qb' then
-        TriggerClientEvent('QBCore:Notify', src, "You were given something else! Nice!", "success", 3500)
-    elseif Config.NotifyType == "okok" then
-        TriggerClientEvent('okokNotify:Alert', source, "RARE ITEM", "You were given something else! Nice!", 3500, 'success')
+        if Config.NotifyType == 'qb' then
+            TriggerClientEvent('QBCore:Notify', src, "You were given something else! Nice!", "success", 3500)
+        elseif Config.NotifyType == "okok" then
+            TriggerClientEvent('okokNotify:Alert', source, "RARE ITEM", "You were given something else! Nice!", 3500, 'success')
+        end
     end
 end)
