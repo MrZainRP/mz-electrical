@@ -85,7 +85,7 @@ Config = {
     ----------
     JobCompleteLow = 1500,                  -- Lowest amount of money received for completing a Tier 1 job. 
     JobCompleteHigh = 2500,                 -- Highest amount of money received for completing a Tier 1 job. 
-    Tier1Jobs = 1,                          -- Number of generator components which need to be completed before job completes (recommended: 4+)
+    Tier1Jobs = 4,                          -- Number of generator components which need to be completed before job completes (recommended: 4+)
     Tier1Multiplier = 3,                    -- Number of item parses player receives for finishing a Tier 1 job and cashing in.
     ----------
     --TIER 2--
