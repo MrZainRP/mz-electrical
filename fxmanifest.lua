@@ -6,7 +6,7 @@ author 'Mr_Zain#4139'
 
 description 'mz-electrical - A highly customisable legal job for qb-core including progression, tutorial and randomised locations to complete tasks.'
 
-version '1.0.3'
+version '1.0.4'
 
 shared_scripts {
     'shared/*.lua'

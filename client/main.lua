@@ -525,6 +525,7 @@ RegisterNetEvent('mz-electrical:client:ReturnSupplies', function()
     Wait(1000)
     TriggerEvent('animations:client:EmoteCommandStart', {"c"})
     if jobFinishedPrep then 
+        jobFinishedPrep = false 
         AntiExploitPrep = true 
         Wait(100)
         TriggerServerEvent('mz-electrical:server:GetPaymentPrep', AntiExploitPrep)
@@ -543,7 +544,6 @@ RegisterNetEvent('mz-electrical:client:ReturnSupplies', function()
         working = false
         jobStart = false 
         jobTierPrep = false
-        jobFinishedPrep = false 
         jobsCompletePrep = 0
         AntiExploitPrep = false 
     else 
@@ -857,7 +857,7 @@ end)
 -----------------------
 
 CreateThread(function()
-    exports['qb-target']:AddBoxZone("ElectricalworkTier3", vector3(711.97, 165.46, 80.75), 1.2, 0.2, {
+    exports['qb-target']:AddBoxZone("ElectricalworkTier3", vector3(711.97, 165.46, 80.75), 1.2, 0.4, {
         name = "ElectricalworkTier3",
         heading = 69,
         debugPoly = false,
@@ -1460,6 +1460,7 @@ RegisterNetEvent('mz-electrical:client:GetPaid', function()
     Wait(1000)
     if jobFinished then 
         if jobTier1 then 
+            jobFinished = false 
             AntiExploitT1 = true 
             TriggerServerEvent('mz-electrical:server:GetPayment', AntiExploitT1)
             Wait(500)
@@ -1472,7 +1473,6 @@ RegisterNetEvent('mz-electrical:client:GetPaid', function()
             ClearPedTasks(PlayerPedId())
             working = false
             jobTier1 = false
-            jobFinished = false 
             jobsComplete = 0
             AntiExploitT1 = false
             Wait(1000)
@@ -1491,8 +1491,9 @@ RegisterNetEvent('mz-electrical:client:GetPaid', function()
                 exports["mz-skills"]:UpdateSkill("Electrical", chance)
             end
         elseif jobTier2 then 
+            jobFinished = false
             AntiExploitT2 = true 
-            TriggerServerEvent('mz-electrical:server:GetPaymentTier2') 
+            TriggerServerEvent('mz-electrical:server:GetPaymentTier2', AntiExploitT2) 
             Wait(500)
             local Tier2Multiplier = 0
             while Tier2Multiplier <= (Config.Tier2Multiplier - 1) do
@@ -1503,7 +1504,6 @@ RegisterNetEvent('mz-electrical:client:GetPaid', function()
             ClearPedTasks(PlayerPedId())
             working = false
             jobTier2 = false
-            jobFinished = false
             jobsCompleteT2 = 0
             AntiExploitT2 = false
             Wait(1000)
@@ -1522,8 +1522,9 @@ RegisterNetEvent('mz-electrical:client:GetPaid', function()
                 exports["mz-skills"]:UpdateSkill("Electrical", chance)
             end
         elseif jobTier3 then 
+            jobFinished = false 
             AntiExploitT3 = true 
-            TriggerServerEvent('mz-electrical:server:GetPaymentTier3')
+            TriggerServerEvent('mz-electrical:server:GetPaymentTier3', AntiExploitT3)
             Wait(500)
             local Tier3Multiplier = 0
             while Tier3Multiplier <= (Config.Tier3Multiplier - 1) do
@@ -1534,7 +1535,6 @@ RegisterNetEvent('mz-electrical:client:GetPaid', function()
             ClearPedTasks(PlayerPedId())
             working = false
             jobTier3 = false
-            jobFinished = false
             jobsCompleteT3 = 0
             AntiExploitT3 = false 
             Wait(1000)
