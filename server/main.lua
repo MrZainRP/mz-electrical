@@ -97,7 +97,7 @@ RegisterNetEvent('mz-electrical:server:GetPaymentItems', function()
     elseif chance > (Config.Item1chance + Config.Item2chance + Config.Item3chance + Config.Item4chance)  and chance <= (Config.Item1chance + Config.Item2chance + Config.Item3chance + Config.Item4chance + Config.Item5chance) then
         Player.Functions.AddItem(Config.Item5, Item5Amount, false)
         TriggerClientEvent('inventory:client:ItemBox', source, QBCore.Shared.Items[Config.Item5], "add", Item5Amount)
-    elseif chance > (Config.Item1chance + Config.Item2chance + Config.Item3chance + Config.Item4chance + Config.Item5chance)  and chance <= (Config.Item1chance + Config.Item2chance + Config.Item3chance + Config.Item4chance + Config.Item5chance + Config.Item6Chance) then
+    elseif chance > (Config.Item1chance + Config.Item2chance + Config.Item3chance + Config.Item4chance + Config.Item5chance)  and chance <= (Config.Item1chance + Config.Item2chance + Config.Item3chance + Config.Item4chance + Config.Item5chance + Config.Item6chance) then
         Player.Functions.AddItem(Config.Item6, Item6Amount, false)
         TriggerClientEvent('inventory:client:ItemBox', source, QBCore.Shared.Items[Config.Item6], "add", Item6Amount)
     end 
