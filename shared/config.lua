@@ -21,6 +21,9 @@ Config = {
     -------------
     mzskills = true,                        -- Change to "false" to run the resource without reference to mz-skills    
     -- if "Config.Skillcheck = true", then the following parameters apply:
+    -- XP Requirements:
+    ElecXPskill = "Electrical",             -- Change to any skill name but it must be the same as in mz-skills/config.lua
+    -- XP Modifiers:
     tierPrepXP = 0,                         -- Amount of "Electrical" XP needed to perform Prep Tier work.
     tier1XP = 400,                          -- Amount of "Electrical" XP needed to perform Tier 1 work.
     tier2XP = 2400,                         -- Amount of "Electrical" XP needed to perform Tier 2 work.
