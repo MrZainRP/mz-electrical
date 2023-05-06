@@ -8,7 +8,7 @@ RegisterNetEvent('mz-electrical:server:GetPaymentPrep', function(AntiExploitPrep
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local Payment = math.random(Config.JobCompletePrepLow, Config.JobCompletePrepHigh)
-    if AntiExploitPrep then 
+    if not AntiExploitPrep then 
         Player.Functions.AddMoney(Config.PaymentType, Payment)
         if Config.NotifyType == 'qb' then
             TriggerClientEvent('QBCore:Notify', src, "You were paid $"..Payment.." into your bank account.", "success", 3500)
@@ -24,7 +24,7 @@ RegisterNetEvent('mz-electrical:server:GetPayment', function(AntiExploitT1)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local Payment = math.random(Config.JobCompleteLow, Config.JobCompleteHigh)
-    if AntiExploitT1 then 
+    if not AntiExploitT1 then 
         Player.Functions.AddMoney(Config.PaymentType, Payment)
         if Config.NotifyType == 'qb' then
             TriggerClientEvent('QBCore:Notify', src, "You were paid $"..Payment.." into your bank account.", "success", 3500)
@@ -40,7 +40,7 @@ RegisterNetEvent('mz-electrical:server:GetPaymentTier2', function(AntiExploitT2)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local Payment = math.random(Config.JobCompleteTier2Low, Config.JobCompleteTier2High)
-    if AntiExploitT2 then 
+    if not AntiExploitT2 then 
         Player.Functions.AddMoney(Config.PaymentType, Payment)
         if Config.NotifyType == 'qb' then
             TriggerClientEvent('QBCore:Notify', src, "You were paid $"..Payment.." into your bank account.", "success", 3500)
@@ -56,7 +56,7 @@ RegisterNetEvent('mz-electrical:server:GetPaymentTier3', function(AntiExploitT3)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local Payment = math.random(Config.JobCompleteTier3Low, Config.JobCompleteTier3High)
-    if AntiExploitT3 then 
+    if not AntiExploitT3 then 
         Player.Functions.AddMoney(Config.PaymentType, Payment)
         if Config.NotifyType == 'qb' then
             TriggerClientEvent('QBCore:Notify', src, "You were paid $"..Payment.." into your bank account.", "success", 3500)
@@ -94,10 +94,10 @@ RegisterNetEvent('mz-electrical:server:GetPaymentItems', function()
     elseif chance > (Config.Item1chance + Config.Item2chance + Config.Item3chance) and chance <= (Config.Item1chance + Config.Item2chance + Config.Item3chance + Config.Item4chance) then
         Player.Functions.AddItem(Config.Item4, Item4Amount, false)
         TriggerClientEvent('inventory:client:ItemBox', source, QBCore.Shared.Items[Config.Item4], "add", Item4Amount)
-    elseif chance > (Config.Item1chance + Config.Item2chance + Config.Item3chance + Config.Item4chance)  and chance <= (Config.Item1chance + Config.Item2chance + Config.Item3chance + Config.Item4chance + Config.Item5chance) then
+    elseif chance > (Config.Item1chance + Config.Item2chance + Config.Item3chance + Config.Item4chance) and chance <= (Config.Item1chance + Config.Item2chance + Config.Item3chance + Config.Item4chance + Config.Item5chance) then
         Player.Functions.AddItem(Config.Item5, Item5Amount, false)
         TriggerClientEvent('inventory:client:ItemBox', source, QBCore.Shared.Items[Config.Item5], "add", Item5Amount)
-    elseif chance > (Config.Item1chance + Config.Item2chance + Config.Item3chance + Config.Item4chance + Config.Item5chance)  and chance <= (Config.Item1chance + Config.Item2chance + Config.Item3chance + Config.Item4chance + Config.Item5chance + Config.Item6chance) then
+    elseif chance > (Config.Item1chance + Config.Item2chance + Config.Item3chance + Config.Item4chance + Config.Item5chance) and chance <= (Config.Item1chance + Config.Item2chance + Config.Item3chance + Config.Item4chance + Config.Item5chance + Config.Item6chance) then
         Player.Functions.AddItem(Config.Item6, Item6Amount, false)
         TriggerClientEvent('inventory:client:ItemBox', source, QBCore.Shared.Items[Config.Item6], "add", Item6Amount)
     end 

@@ -16,10 +16,7 @@ local jobFinished = false
 local jobFinishedPrep = false
 local working = false
 
-local AntiExploitPrep = false 
-local AntiExploitT1 = false
-local AntiExploitT2 = false
-local AntiExploitT3 = false
+
 
 local jobTier1 = false
 local jobTier2 = false 
@@ -177,10 +174,6 @@ RegisterNetEvent('mz-electrical:client:EndWork', function()
     jobFinished = false
     jobFinishedPrep = false
     working = false
-    AntiExploitPrep = false 
-    AntiExploitT1 = false
-    AntiExploitT2 = false
-    AntiExploitT3 = false
     jobTier1 = false
     jobTier2 = false 
     jobTier3 = false 
@@ -492,15 +485,19 @@ RegisterNetEvent('mz-electrical:client:PrepareJob', function(timevariable)
     end
 end)
 
+local AntiExploitPrep = true 
+
+
 RegisterNetEvent('mz-electrical:client:ReturnSupplies', function()
     TriggerEvent('animations:client:EmoteCommandStart', {"mechanic"})
     Wait(1000)
     TriggerEvent('animations:client:EmoteCommandStart', {"c"})
     if jobFinishedPrep then 
         jobFinishedPrep = false 
-        AntiExploitPrep = true 
         Wait(100)
+        AntiExploitPrep = false 
         TriggerServerEvent('mz-electrical:server:GetPaymentPrep', AntiExploitPrep)
+        AntiExploitPrep = true
         Wait(500)
         local TierPrepMultiplier = 0
         while TierPrepMultiplier <= (Config.TierPrepMultiplier - 1) do
@@ -516,8 +513,7 @@ RegisterNetEvent('mz-electrical:client:ReturnSupplies', function()
         working = false
         jobStart = false 
         jobTierPrep = false
-        jobsCompletePrep = 0
-        AntiExploitPrep = false 
+        jobsCompletePrep = 0 
     else 
         ClearPedTasks(PlayerPedId())
         if Config.NotifyType == 'qb' then
@@ -1465,14 +1461,19 @@ CreateThread(function()
      })
 end)
 
+local AntiExploitT1 = true
+local AntiExploitT2 = true
+local AntiExploitT3 = true
+
 RegisterNetEvent('mz-electrical:client:GetPaid', function()
     TriggerEvent('animations:client:EmoteCommandStart', {"clipboard"})
     Wait(1000)
     if jobFinished then 
         if jobTier1 then 
             jobFinished = false 
-            AntiExploitT1 = true 
+            AntiExploitT1 = false
             TriggerServerEvent('mz-electrical:server:GetPayment', AntiExploitT1)
+            AntiExploitT1 = true
             Wait(500)
             local Tier1Multiplier = 0
             while Tier1Multiplier <= (Config.Tier1Multiplier - 1) do
@@ -1484,7 +1485,6 @@ RegisterNetEvent('mz-electrical:client:GetPaid', function()
             working = false
             jobTier1 = false
             jobsComplete = 0
-            AntiExploitT1 = false
             Wait(1000)
             if Config.RareItems then 
                 TriggerServerEvent('mz-electrical:server:GetPaymentItemsRare')
@@ -1502,8 +1502,9 @@ RegisterNetEvent('mz-electrical:client:GetPaid', function()
             end
         elseif jobTier2 then 
             jobFinished = false
-            AntiExploitT2 = true 
+            AntiExploitT2 = false 
             TriggerServerEvent('mz-electrical:server:GetPaymentTier2', AntiExploitT2) 
+            AntiExploitT2 = true
             Wait(500)
             local Tier2Multiplier = 0
             while Tier2Multiplier <= (Config.Tier2Multiplier - 1) do
@@ -1515,7 +1516,6 @@ RegisterNetEvent('mz-electrical:client:GetPaid', function()
             working = false
             jobTier2 = false
             jobsCompleteT2 = 0
-            AntiExploitT2 = false
             Wait(1000)
             if Config.RareItems then 
                 TriggerServerEvent('mz-electrical:server:GetPaymentItemsRare')
@@ -1533,8 +1533,9 @@ RegisterNetEvent('mz-electrical:client:GetPaid', function()
             end
         elseif jobTier3 then 
             jobFinished = false 
-            AntiExploitT3 = true 
+            AntiExploitT3 = false 
             TriggerServerEvent('mz-electrical:server:GetPaymentTier3', AntiExploitT3)
+            AntiExploitT3 = true 
             Wait(500)
             local Tier3Multiplier = 0
             while Tier3Multiplier <= (Config.Tier3Multiplier - 1) do
@@ -1546,7 +1547,6 @@ RegisterNetEvent('mz-electrical:client:GetPaid', function()
             working = false
             jobTier3 = false
             jobsCompleteT3 = 0
-            AntiExploitT3 = false 
             Wait(1000)
             if Config.RareItems then 
                 TriggerServerEvent('mz-electrical:server:GetPaymentItemsRare')
