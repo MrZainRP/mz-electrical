@@ -16,8 +16,6 @@ local jobFinished = false
 local jobFinishedPrep = false
 local working = false
 
-
-
 local jobTier1 = false
 local jobTier2 = false 
 local jobTier3 = false 
@@ -132,18 +130,21 @@ CreateThread(function()
         }, {
             options = { 
             {
+                num = 1, 
                 type = "client",
                 event = "mz-electrical:client:ToggleDuty",
                 icon = 'fas fa-tools',
                 label = 'Go On/Off Duty'
             },
             {
+                num = 2,
                 type = "client",
                 event = "mz-electrical:client:Tutorial",
                 icon = 'fas fa-tools',
                 label = 'How do I work here?'
             },
             {
+                num = 3,
                 type = "client",
                 event = "mz-electrical:client:EndWork",
                 icon = 'fas fa-tools',
@@ -198,6 +199,8 @@ end)
 RegisterNetEvent('mz-electrical:client:Tutorial', function()
     if not TutorialStarted then 
         TutorialStarted = true 
+        local player = PlayerPedId()
+        FreezeEntityPosition(player, true)
         if Config.NotifyType == 'qb' then
             QBCore.Functions.Notify("Welcome to the Department of Power and Water", "primary", 4000)
         elseif Config.NotifyType == "okok" then
@@ -240,7 +243,7 @@ RegisterNetEvent('mz-electrical:client:Tutorial', function()
             exports['okokNotify']:Alert("WELCOME", "You can start by preparing the job site here...", 5500, "info")
         end
         Wait(2500)
-        exports['ps-ui']:ShowImage("https://i.imgur.com/rtlEP7d.png") -- 1
+        exports['ps-ui']:ShowImage("https://r2.fivemanage.com/9sev8XzpfXLCZgtEXVz8B/1.png") -- 1
         Wait(2500)
         if Config.NotifyType == 'qb' then
             QBCore.Functions.Notify("Just head over from where you are to the tool location on your right.", "primary", 3500)
@@ -248,7 +251,7 @@ RegisterNetEvent('mz-electrical:client:Tutorial', function()
             exports['okokNotify']:Alert("WELCOME", "Just head over from where you are to the tool location on your right.", 3500, "info")
         end
         Wait(4500)
-        exports['ps-ui']:ShowImage("https://i.imgur.com/mPm5oSU.png") -- 2
+        exports['ps-ui']:ShowImage("https://r2.fivemanage.com/9sev8XzpfXLCZgtEXVz8B/2.png") -- 2
         Wait(2000)
         if Config.NotifyType == 'qb' then
             QBCore.Functions.Notify("When you are finished, return your supplies here to get paid (and start a new job) at this same place.", "primary", 5500)
@@ -268,7 +271,7 @@ RegisterNetEvent('mz-electrical:client:Tutorial', function()
             exports['okokNotify']:Alert("WELCOME", "Here is where you start Tier 1 jobs.", 3500, "info")
         end
         Wait(1000)
-        exports['ps-ui']:ShowImage("https://i.imgur.com/EVOESau.png") -- 3
+        exports['ps-ui']:ShowImage("https://r2.fivemanage.com/9sev8XzpfXLCZgtEXVz8B/3.png") -- 3
         Wait(5000)
         if Config.NotifyType == 'qb' then
             QBCore.Functions.Notify("Over on the other side of the plant you can start Tier 2 jobs.", "primary", 4500)
@@ -276,7 +279,7 @@ RegisterNetEvent('mz-electrical:client:Tutorial', function()
             exports['okokNotify']:Alert("WELCOME", "Over on the other side of the plant you can start Tier 2 jobs.", 4500, "info")
         end
         Wait(1000)
-        exports['ps-ui']:ShowImage("https://i.imgur.com/RcBWQUK.png") -- 4
+        exports['ps-ui']:ShowImage("https://r2.fivemanage.com/9sev8XzpfXLCZgtEXVz8B/4.png") -- 4
         Wait(5000)
         if Config.NotifyType == 'qb' then
             QBCore.Functions.Notify("And back next to the Tier 1 jobs you can start the Tier 3 jobs here.", "primary", 4500)
@@ -284,7 +287,7 @@ RegisterNetEvent('mz-electrical:client:Tutorial', function()
             exports['okokNotify']:Alert("WELCOME", "And back next to the Tier 1 jobs you can start the Tier 3 jobs here.", 4500, "info")
         end
         Wait(1000)
-        exports['ps-ui']:ShowImage("https://i.imgur.com/Q7TqONP.png") -- 5
+        exports['ps-ui']:ShowImage("https://r2.fivemanage.com/9sev8XzpfXLCZgtEXVz8B/5.png") -- 5
         Wait(5000)
         if Config.NotifyType == 'qb' then
             QBCore.Functions.Notify("When you are done with any T1, T2 or T3 job, you can get paid here.", "primary", 3500)
@@ -292,7 +295,7 @@ RegisterNetEvent('mz-electrical:client:Tutorial', function()
             exports['okokNotify']:Alert("WELCOME", "When you are done with any T1, T2 or T3 job, you can get paid here.", 3500, "info")
         end
         Wait(1000)
-        exports['ps-ui']:ShowImage("https://i.imgur.com/YCcXB1F.png") -- 6
+        exports['ps-ui']:ShowImage("https://r2.fivemanage.com/9sev8XzpfXLCZgtEXVz8B/6.png") -- 6
         Wait(3500)
         if Config.NotifyType == 'qb' then
             QBCore.Functions.Notify("You cannot start more than one job before collecting your payment.", "primary", 3500)
@@ -306,7 +309,7 @@ RegisterNetEvent('mz-electrical:client:Tutorial', function()
             exports['okokNotify']:Alert("WELCOME", "Look for the double doors near the Prep Tier work, closest to the entrance.", 4500, "info")
         end
         Wait(1000)
-        exports['ps-ui']:ShowImage("https://i.imgur.com/Ma4Hrt9.png") -- 7
+        exports['ps-ui']:ShowImage("https://r2.fivemanage.com/9sev8XzpfXLCZgtEXVz8B/7.png") -- 7
         Wait(4500)
         if Config.NotifyType == 'qb' then
             QBCore.Functions.Notify("You can go through this tutorial as many times as you like, please visit again if you need to.", "primary", 4500)
@@ -321,6 +324,7 @@ RegisterNetEvent('mz-electrical:client:Tutorial', function()
         end
         Wait(1000)
         TutorialStarted = false
+        FreezeEntityPosition(player, false)
     else 
         if Config.NotifyType == 'qb' then
             QBCore.Functions.Notify("You cannot skip the tutorial or start it again, please pay attention.", "error", 3500)
@@ -344,12 +348,14 @@ CreateThread(function()
         }, {
             options = { 
             {
+                num = 1, 
                 type = "client",
                 event = "mz-electrical:client:mzskillcheckprep",
                 icon = 'fas fa-tools',
                 label = 'Collect supplies'
             },
             {
+                num = 2,
                 type = "client",
                 event = "mz-electrical:client:ReturnSupplies",
                 icon = 'fas fa-tools',
@@ -446,7 +452,7 @@ RegisterNetEvent('mz-electrical:client:PrepareJob', function(timevariable)
                         exports['okokNotify']:Alert("MOVE TO PING", "Please move to the blip to attempt to resolve the issue.", 3000, "info")
                     end   
                     Wait(500)
-                    TriggerEvent('animations:client:EmoteCommandStart', {"c"})
+                    ClearPedTasks(PlayerPedId()) 
                     GetRandomWorkTierPrep()
                 end, function() -- Cancel
                     ClearPedTasks(PlayerPedId())
@@ -491,7 +497,7 @@ local AntiExploitPrep = true
 RegisterNetEvent('mz-electrical:client:ReturnSupplies', function()
     TriggerEvent('animations:client:EmoteCommandStart', {"mechanic"})
     Wait(1000)
-    TriggerEvent('animations:client:EmoteCommandStart', {"c"})
+    ClearPedTasks(PlayerPedId()) 
     if jobFinishedPrep then 
         jobFinishedPrep = false 
         Wait(100)
@@ -562,7 +568,6 @@ RegisterNetEvent('mz-electrical:client:PrepareWorksite', function()
         }, {}, {}, {}, function() -- Done
             Wait(500)
             ClearPedTasks(PlayerPedId())
-            TriggerEvent('animations:client:EmoteCommandStart', {"c"})
             Wait(500)
             local chance = math.random(1, 4)
             if chance == 1 then 
@@ -572,7 +577,6 @@ RegisterNetEvent('mz-electrical:client:PrepareWorksite', function()
             end 
         end, function() -- Cancel
             ClearPedTasks(PlayerPedId())
-            TriggerEvent('animations:client:EmoteCommandStart', {"c"})
             if Config.NotifyType == 'qb' then
                 QBCore.Functions.Notify("Process Cancelled", "error", 3500)
             elseif Config.NotifyType == "okok" then
@@ -600,7 +604,6 @@ RegisterNetEvent('mz-electrical:client:PrepPhase1', function()
         DisableControlAction(0, 170, true),
     }, {}, {}, {}, function() -- Done
         Wait(500)
-        TriggerEvent('animations:client:EmoteCommandStart', {"c"})
         ClearPedTasks(PlayerPedId())
         Wait(500)
         if Config.NotifyType == 'qb' then
@@ -646,7 +649,6 @@ RegisterNetEvent('mz-electrical:client:PrepPhase1', function()
         end
     end, function() -- Cancel
         ClearPedTasks(PlayerPedId())
-        TriggerEvent('animations:client:EmoteCommandStart', {"c"})
         if Config.NotifyType == 'qb' then
             QBCore.Functions.Notify("Process Cancelled", "error", 3500)
         elseif Config.NotifyType == "okok" then
@@ -658,9 +660,9 @@ end)
 
 RegisterNetEvent('mz-electrical:client:PrepPhase2', function()
     TriggerEvent('animations:client:EmoteCommandStart', {"uncuff"})
-    Wait(750)
+    Wait(1000)
     TriggerEvent('animations:client:EmoteCommandStart', {"kneel2"})
-    Wait(750)
+    Wait(1000)
     TriggerEvent('animations:client:EmoteCommandStart', {"mechanic"})
     QBCore.Functions.Progressbar("search_register", "Ensuring component quality...", Config.EnsureQuality, false, true, {
         disableMovement = true,
@@ -670,7 +672,6 @@ RegisterNetEvent('mz-electrical:client:PrepPhase2', function()
         DisableControlAction(0, 170, true),
     }, {}, {}, {}, function() -- Done
         Wait(500)
-        TriggerEvent('animations:client:EmoteCommandStart', {"c"})
         ClearPedTasks(PlayerPedId())
         Wait(500)
         if Config.NotifyType == 'qb' then
@@ -727,7 +728,6 @@ RegisterNetEvent('mz-electrical:client:PrepPhase2', function()
         end
     end, function() -- Cancel
         ClearPedTasks(PlayerPedId())
-        TriggerEvent('animations:client:EmoteCommandStart', {"c"})
         if Config.NotifyType == 'qb' then
             QBCore.Functions.Notify("Process Cancelled", "error", 3500)
         elseif Config.NotifyType == "okok" then
@@ -816,7 +816,7 @@ RegisterNetEvent('mz-electrical:client:StartRepair', function(timevariable)
                 Wait(100)
                 TriggerEvent('animations:client:EmoteCommandStart', {"knock"})
                 Wait(2000)
-                TriggerEvent('animations:client:EmoteCommandStart', {"c"})
+                ClearPedTasks(PlayerPedId()) 
                 if Config.NotifyType == 'qb' then
                     QBCore.Functions.Notify("YOU: I have been sent to look at some generators?", "primary", 3000)
                 elseif Config.NotifyType == "okok" then
@@ -846,7 +846,7 @@ RegisterNetEvent('mz-electrical:client:StartRepair', function(timevariable)
                         exports['okokNotify']:Alert("MOVE TO PING", "Please move to the blip to attempt to resolve the issue.", 3000, "info")
                     end   
                     Wait(500)
-                    TriggerEvent('animations:client:EmoteCommandStart', {"c"})
+                    ClearPedTasks(PlayerPedId()) 
                     GetRandomWork()
                 end, function() -- Cancel
                     ClearPedTasks(PlayerPedId())
@@ -965,7 +965,7 @@ RegisterNetEvent('mz-electrical:client:StartRepairTier2', function(timevariable)
                 Wait(100)
                 TriggerEvent('animations:client:EmoteCommandStart', {"knock"})
                 Wait(2000)
-                TriggerEvent('animations:client:EmoteCommandStart', {"c"})
+                ClearPedTasks(PlayerPedId()) 
                 if Config.NotifyType == 'qb' then
                     QBCore.Functions.Notify("YOU: I heard you had an issue with the power?", "primary", 3000)
                 elseif Config.NotifyType == "okok" then
@@ -994,10 +994,9 @@ RegisterNetEvent('mz-electrical:client:StartRepairTier2', function(timevariable)
                     end   
                     Wait(500)
                     GetRandomWorkTier2()
-                    TriggerEvent('animations:client:EmoteCommandStart', {"c"})
+                    ClearPedTasks(PlayerPedId()) 
                 end, function() -- Cancel
                     ClearPedTasks(PlayerPedId())
-                    TriggerEvent('animations:client:EmoteCommandStart', {"c"})
                     if Config.NotifyType == 'qb' then
                         QBCore.Functions.Notify("Process Cancelled", "error", 3500)
                     elseif Config.NotifyType == "okok" then
@@ -1113,7 +1112,7 @@ RegisterNetEvent('mz-electrical:client:StartRepairTier3', function(timevariable)
                 Wait(100)
                 TriggerEvent('animations:client:EmoteCommandStart', {"knock"})
                 Wait(2000)
-                TriggerEvent('animations:client:EmoteCommandStart', {"c"})
+                ClearPedTasks(PlayerPedId()) 
                 if Config.NotifyType == 'qb' then
                     QBCore.Functions.Notify("YOU: They've sent the most experienced sparky they have...", "primary", 3000)
                 elseif Config.NotifyType == "okok" then
@@ -1142,10 +1141,9 @@ RegisterNetEvent('mz-electrical:client:StartRepairTier3', function(timevariable)
                     end   
                     Wait(500)
                     GetRandomWorkTier3()
-                    TriggerEvent('animations:client:EmoteCommandStart', {"c"})
+                    ClearPedTasks(PlayerPedId()) 
                 end, function() -- Cancel
                     ClearPedTasks(PlayerPedId())
-                    TriggerEvent('animations:client:EmoteCommandStart', {"c"})
                     if Config.NotifyType == 'qb' then
                         QBCore.Functions.Notify("Process Cancelled", "error", 3500)
                     elseif Config.NotifyType == "okok" then
@@ -1231,7 +1229,7 @@ RegisterNetEvent('mz-electrical:client:OpenComponent', function()
                         elseif Config.NotifyType == "okok" then
                             exports['okokNotify']:Alert("WIRES BROKEN", "You fail to fix the wires and almost electructe yourself... Be careful!", 3500, "error")
                         end
-                        TriggerEvent('animations:client:EmoteCommandStart', {"c"})
+                        ClearPedTasks(PlayerPedId()) 
                     end 
                     working = false 
                 end
@@ -1294,7 +1292,7 @@ RegisterNetEvent('mz-electrical:client:FixWires', function()
                     elseif Config.NotifyType == "okok" then
                         exports['okokNotify']:Alert("WIRES BROKEN", "You fail to fix the wires and almost electructe yourself... Be careful!", 3500, "error")
                     end
-                    TriggerEvent('animations:client:EmoteCommandStart', {"c"})
+                    ClearPedTasks(PlayerPedId()) 
                 end 
                 working = false 
             end
@@ -1314,7 +1312,6 @@ RegisterNetEvent('mz-electrical:client:FixWiresProgressbar', function()
         DisableControlAction(0, 170, true),
     }, {}, {}, {}, function() -- Done
         Wait(500)
-        TriggerEvent('animations:client:EmoteCommandStart', {"c"})
         ClearPedTasks(PlayerPedId())
         Wait(500)
         if Config.NotifyType == 'qb' then
@@ -1414,7 +1411,7 @@ RegisterNetEvent('mz-electrical:client:GetPikachud', function()
         disableCombat = true,
         DisableControlAction(0, 170, true),
     }, {}, {}, {}, function() -- Done
-        TriggerEvent('animations:client:EmoteCommandStart', {"c"})
+        ClearPedTasks(PlayerPedId()) 
     end)
     SetEntityHealth(PlayerPedId(), GetEntityHealth(PlayerPedId()) - Config.HealthDecay)
     Wait(2900)
@@ -1564,7 +1561,7 @@ RegisterNetEvent('mz-electrical:client:GetPaid', function()
             end
         end
         Wait(500)
-        TriggerEvent('animations:client:EmoteCommandStart', {"c"})
+        ClearPedTasks(PlayerPedId()) 
     else 
         ClearPedTasks(PlayerPedId())
         if Config.NotifyType == 'qb' then
