@@ -65,13 +65,21 @@ local function DrawPackageLocationBlipTierPrep()
 end
 
 local function DestroyPickupTarget()
-    exports['qb-target']:RemoveZone(pickupTargetID)
+    if Config.UsingOxTarget == 1 then 
+        exports.ox_target:removeLocalEntity(pickupTargetID)
+    else 
+        exports['qb-target']:RemoveZone(pickupTargetID)
+    end 
     pickupZone = nil
     isInsidePickupZone = false
 end
 
 local function DestroyPickupTarget2()
-    exports['qb-target']:RemoveZone(pickupTargetID2)
+    if Config.UsingOxTarget == 1 then 
+        exports.ox_target:removeLocalEntity(pickupTargetID2)
+    else 
+        exports['qb-target']:RemoveZone(pickupTargetID2)
+    end 
     pickupZone = nil
     isInsidePickupZone = false
 end
@@ -121,38 +129,72 @@ end)
 ---------------
 
 CreateThread(function()
-    exports['qb-target']:AddBoxZone("ElectricalworkOnDuty", vector3(724.23, 134.32, 80.96), 1, 0.4, {
-        name = "ElectricalworkOnDuty",
-        heading = 330,
-        debugPoly = false,
-        minZ = 77.76,
-        maxZ = 81.76,
-        }, {
-            options = { 
-            {
-                num = 1, 
-                type = "client",
-                event = "mz-electrical:client:ToggleDuty",
-                icon = 'fas fa-tools',
-                label = 'Go On/Off Duty'
+    if Config.UsingOxTarget ~= 1 then 
+        exports['qb-target']:AddBoxZone("electricalworkOnDuty", vector3(724.23, 134.32, 80.96), 1, 0.4, {
+            name = "electricalworkOnDuty",
+            heading = 330,
+            debugPoly = false,
+            minZ = 77.76,
+            maxZ = 81.76,
+            }, {
+                options = { 
+                {
+                    num = 1, 
+                    type = "client",
+                    event = "mz-electrical:client:ToggleDuty",
+                    icon = 'fas fa-tools',
+                    label = 'Go On/Off Duty'
+                },
+                {
+                    num = 2,
+                    type = "client",
+                    event = "mz-electrical:client:Tutorial",
+                    icon = 'fas fa-tools',
+                    label = 'How do I work here?'
+                },
+                {
+                    num = 3,
+                    type = "client",
+                    event = "mz-electrical:client:EndWork",
+                    icon = 'fas fa-tools',
+                    label = 'End Shift (No Payment)'
+                },
             },
-            {
-                num = 2,
-                type = "client",
-                event = "mz-electrical:client:Tutorial",
-                icon = 'fas fa-tools',
-                label = 'How do I work here?'
+            distance = 1.5,
+        })
+    else 
+        exports.ox_target:addBoxZone({
+            name = "electricalworkOnDuty",
+            coords = vector3(724.23, 134.32, 80.96),
+            size = vec3(1.0, 0.4, 4.0),
+            rotation = 330,
+            options = {
+                {
+                    num = 1, 
+                    type = "client",
+                    event = "mz-electrical:client:ToggleDuty",
+                    icon = 'fas fa-tools',
+                    label = 'Go On/Off Duty'
+                },
+                {
+                    num = 2,
+                    type = "client",
+                    event = "mz-electrical:client:Tutorial",
+                    icon = 'fas fa-tools',
+                    label = 'How do I work here?'
+                },
+                {
+                    num = 3,
+                    type = "client",
+                    event = "mz-electrical:client:EndWork",
+                    icon = 'fas fa-tools',
+                    label = 'End Shift (No Payment)'
+                },
             },
-            {
-                num = 3,
-                type = "client",
-                event = "mz-electrical:client:EndWork",
-                icon = 'fas fa-tools',
-                label = 'End Shift (No Payment)'
-            },
-        },
-        distance = 1.5,
-     })
+            distance = 1.5,
+            debug = false,
+        })
+    end 
 end)
 
 RegisterNetEvent('mz-electrical:client:EndWork', function()
@@ -339,8 +381,9 @@ end)
 --------------------------
 
 CreateThread(function()
-    exports['qb-target']:AddBoxZone("ElectricalworkTierPrep", vector3(733.11, 145.44, 80.75), 0.85, 1, {
-        name = "ElectricalworkTierPrep",
+    if Config.UsingOxTarget ~= 1 then 
+    exports['qb-target']:AddBoxZone("electricalworkTierPrep", vector3(733.11, 145.44, 80.75), 0.85, 1, {
+        name = "electricalworkTierPrep",
         heading = 60,
         debugPoly = false,
         minZ = 78.15,
@@ -363,7 +406,33 @@ CreateThread(function()
             },
         },
         distance = 1.5,
-     })
+    })
+    else 
+        exports.ox_target:addBoxZone({
+            name = "electricalworkTierPrep",
+            coords = vector3(733.11, 145.44, 80.75),
+            size = vec3(0.85, 1, 4.0),
+            rotation = 60,
+            options = {
+                {
+                    num = 1, 
+                    type = "client",
+                    event = "mz-electrical:client:mzskillcheckprep",
+                    icon = 'fas fa-tools',
+                    label = 'Collect supplies'
+                },
+                {
+                    num = 2,
+                    type = "client",
+                    event = "mz-electrical:client:ReturnSupplies",
+                    icon = 'fas fa-tools',
+                    label = 'Return Supplies'
+                },
+            },
+            distance = 1.5,
+            debug = false,
+        })
+    end 
 end)
 
 RegisterNetEvent('mz-electrical:client:mzskillcheckprep', function()
@@ -742,23 +811,42 @@ end)
 -----------------------
 
 CreateThread(function()
-    exports['qb-target']:AddBoxZone("ElectricalworkTier1", vector3(718.92, 152.87, 80.75), 1.2, 0.3, {
-        name = "ElectricalworkTier1",
-        heading = 60,
-        debugPoly = false,
-        minZ = 78.35,
-        maxZ = 82.35,
-        }, {
-            options = { 
-            {
-                type = "client",
-                event = "mz-electrical:client:mzskillchecktier1",
-                icon = 'fas fa-tools',
-                label = 'Confer with Site Warden'
+    if Config.UsingOxTarget ~= 1 then 
+        exports['qb-target']:AddBoxZone("electricalworkTier1", vector3(718.92, 152.87, 80.75), 1.2, 0.3, {
+            name = "electricalworkTier1",
+            heading = 60,
+            debugPoly = false,
+            minZ = 78.35,
+            maxZ = 82.35,
+            }, {
+                options = { 
+                {
+                    type = "client",
+                    event = "mz-electrical:client:mzskillchecktier1",
+                    icon = 'fas fa-tools',
+                    label = 'Confer with Site Warden'
+                },
             },
-        },
-        distance = 1.5,
-     })
+            distance = 1.5,
+        })
+    else 
+        exports.ox_target:addBoxZone({
+            name = "electricalworkTier1",
+            coords = vector3(718.92, 152.87, 80.75),
+            size = vec3(1.2, 0.3, 4.0),
+            rotation = 60,
+            options = {
+                {
+                    type = "client",
+                    event = "mz-electrical:client:mzskillchecktier1",
+                    icon = 'fas fa-tools',
+                    label = 'Confer with Site Warden'
+                },
+            },
+            distance = 1.5,
+            debug = false,
+        })
+    end 
 end)
 
 RegisterNetEvent('mz-electrical:client:mzskillchecktier1', function()
@@ -890,23 +978,42 @@ end)
 -----------------------
 
 CreateThread(function()
-    exports['qb-target']:AddBoxZone("ElectricalworkTier2", vector3(669.69, 100.67, 80.75), 1.2, 0.2, {
-        name = "ElectricalworkTier2",
-        heading = 90,
-        debugPoly = false,
-        minZ = 78.35,
-        maxZ = 82.35,
-        }, {
-            options = { 
-            {
-                type = "client",
-                event = "mz-electrical:client:mzskillchecktier2",
-                icon = 'fas fa-tools',
-                label = 'Speak to Foreman'
+    if Config.UsingOxTarget ~= 1 then 
+        exports['qb-target']:AddBoxZone("electricalworkTier2", vector3(669.69, 100.67, 80.75), 1.2, 0.2, {
+            name = "electricalworkTier2",
+            heading = 90,
+            debugPoly = false,
+            minZ = 78.35,
+            maxZ = 82.35,
+            }, {
+                options = { 
+                {
+                    type = "client",
+                    event = "mz-electrical:client:mzskillchecktier2",
+                    icon = 'fas fa-tools',
+                    label = 'Speak to Foreman'
+                },
             },
-        },
-        distance = 1.5,
-     })
+            distance = 1.5,
+        })
+    else 
+        exports.ox_target:addBoxZone({
+            name = "electricalworkTier2",
+            coords = vector3(669.69, 100.67, 80.75),
+            size = vec3(1.2, 0.2, 4.0),
+            rotation = 90,
+            options = {
+                {
+                    type = "client",
+                    event = "mz-electrical:client:mzskillchecktier2",
+                    icon = 'fas fa-tools',
+                    label = 'Speak to Foreman'
+                },
+            },
+            distance = 1.5,
+            debug = false,
+        })
+    end 
 end)
 
 RegisterNetEvent('mz-electrical:client:mzskillchecktier2', function()
@@ -1037,23 +1144,42 @@ end)
 -----------------------
 
 CreateThread(function()
-    exports['qb-target']:AddBoxZone("ElectricalworkTier3", vector3(711.97, 165.46, 80.75), 1.2, 0.4, {
-        name = "ElectricalworkTier3",
-        heading = 69,
-        debugPoly = false,
-        minZ = 78.35,
-        maxZ = 82.35,
-        }, {
-            options = { 
-            {
-                type = "client",
-                event = "mz-electrical:client:mzskillchecktier3",
-                icon = 'fas fa-tools',
-                label = 'Speak to Site Manager'
+    if Config.UsingOxTarget ~= 1 then 
+        exports['qb-target']:AddBoxZone("electricalworkTier3", vector3(711.97, 165.46, 80.75), 1.2, 0.4, {
+            name = "electricalworkTier3",
+            heading = 69,
+            debugPoly = false,
+            minZ = 78.35,
+            maxZ = 82.35,
+            }, {
+                options = { 
+                {
+                    type = "client",
+                    event = "mz-electrical:client:mzskillchecktier3",
+                    icon = 'fas fa-tools',
+                    label = 'Speak to Site Manager'
+                },
             },
-        },
-        distance = 1.5,
-     })
+            distance = 1.5,
+        })
+    else 
+        exports.ox_target:addBoxZone({
+            name = "electricalworkTier3",
+            coords = vector3(711.97, 165.46, 80.75),
+            size = vec3(1.2, 0.4, 4.0),
+            rotation = 69,
+            options = {
+                {
+                    type = "client",
+                    event = "mz-electrical:client:mzskillchecktier3",
+                    icon = 'fas fa-tools',
+                    label = 'Speak to Site Manager',
+                },
+            },
+            distance = 1.5,
+            debug = false,
+        })
+    end 
 end)
 
 RegisterNetEvent('mz-electrical:client:mzskillchecktier3', function()
@@ -1439,23 +1565,42 @@ end)
 ---------------
 
 CreateThread(function()
-    exports['qb-target']:AddBoxZone("FinishElectricalWork", vector3(728.68, 148.79, 80.75), 2.8, 0.4, {
-        name = "FinishElectricalWork",
-        heading = 62,
-        debugPoly = false,
-        minZ = 78.55,
-        maxZ = 82.55,
-        }, {
-            options = { 
-            {
-                type = "client",
-                event = "mz-electrical:client:GetPaid",
-                icon = 'fas fa-sack-dollar',
-                label = 'Finalise work'
+    if Config.UsingOxTarget ~= 1 then 
+        exports['qb-target']:AddBoxZone("finishElectricalWork", vector3(728.68, 148.79, 80.75), 2.8, 0.4, {
+            name = "finishElectricalWork",
+            heading = 62,
+            debugPoly = false,
+            minZ = 78.55,
+            maxZ = 82.55,
+            }, {
+                options = { 
+                {
+                    type = "client",
+                    event = "mz-electrical:client:GetPaid",
+                    icon = 'fas fa-sack-dollar',
+                    label = 'Finalise work'
+                },
             },
-        },
-        distance = 1.5,
-     })
+            distance = 1.5,
+        })
+    else 
+        exports.ox_target:addBoxZone({
+            name = "finishElectricalWork",
+            coords = vector3(728.68, 148.79, 80.75),
+            size = vec3(2.8, 0.4, 4.0),
+            rotation = 62,
+            options = {
+                {
+                    type = "client",
+                    event = "mz-electrical:client:GetPaid",
+                    icon = 'fas fa-sack-dollar',
+                    label = 'Finalise work',
+                },
+            },
+            distance = 1.5,
+            debug = false,
+        })
+    end
 end)
 
 local AntiExploitT1 = true

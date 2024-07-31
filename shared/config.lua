@@ -1,9 +1,10 @@
 -----------------
 --MZ-ELECTRICAL--
 -----------------
-
 Config = {
-    
+
+    UsingOxTarget = 1,                       -- Set to "2" to disable qb-target functionality (if it is causing interference with ox_target)
+
     ElectricalWork 	= vector4(687.54, 132.27, 80.75, 79.38),    -- Location of Blip on map (no need to adjust)
     
     ---------------------
